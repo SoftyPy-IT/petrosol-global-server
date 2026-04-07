@@ -15,7 +15,6 @@ const routeModules = [
   {
     path: '/user',
     route: userRoute,
-    
   },
   {
     path: '/banner',
