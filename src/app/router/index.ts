@@ -3,6 +3,7 @@ import { userRoute } from '../modules/user/user.route';
 import { authRoute } from '../modules/auth/auth.route';
 import { BannerRoutes } from '../modules/banner/banner.route';
 import { CareerRoutes } from '../modules/career/career.route';
+import { ContactRoutes } from '../modules/contact/contact.route';
 
 const router = Router();
 
@@ -14,6 +15,7 @@ const routeModules = [
   {
     path: '/user',
     route: userRoute,
+    
   },
   {
     path: '/banner',
@@ -22,6 +24,10 @@ const routeModules = [
   {
     path: '/career',
     route: CareerRoutes,
+  },
+  {
+    path: '/contact',
+    route: ContactRoutes,
   },
 ];
 
