@@ -5,9 +5,9 @@ dotenv.config({ path: path.join((process.cwd(), '.env')) });
 
 export default {
   // server configuration:
-  port: process.env.PORT,
+  port: process.env.APP_PORT,
   node_env: process.env.APP_MODE,
-  database_url: process.env.DATABASE_URL,
+  database_url: process.env.APP_DB,
   // jwt configuration:
   jwt_secret: process.env.ACCESS_TOKEN,
   jwt_expiration: process.env.JWT_ACCESS_EXPIRES_IN,
