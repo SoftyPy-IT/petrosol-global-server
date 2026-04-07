@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Date, Model } from 'mongoose';
 import { TGender, USER_ROLE } from './user.constant';
 
 export type TUserStatus = 'in-progress' | 'blocked';
@@ -24,7 +24,7 @@ export interface IUser {
   gender: TGender;
   password: string;
   image?: string;
-  passwordChangeAt?: Date;
+  passwordChangeAt: string;
   role: TUserRole;
   status: TUserStatus;
   isDeleted: boolean;

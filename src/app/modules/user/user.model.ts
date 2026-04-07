@@ -3,6 +3,7 @@ import { IUser, userModel } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../config';
 import { USER_STATUS } from './user.constant';
+import { slugGenerator } from '../../utils/slugGenerator';
 
 const userSchema = new Schema<IUser, userModel>(
   {
@@ -21,7 +22,7 @@ const userSchema = new Schema<IUser, userModel>(
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
     passwordChangeAt: {
-      type: Date,
+      type: String,
     },
     role: {
       type: String,
@@ -67,12 +68,10 @@ userSchema.statics.isPasswordMatch = async function (
 //for create user slug:
 userSchema.pre('save', function (next) {
   if (this.isModified('name')) {
-    this.slug =
-      `${this.name?.firstName}-${this.name?.lastName}-${this.name?.middleName}-${this.email}`
-        .toLowerCase()
-        .replace(/ /g, '-');
+    const name = `${this.name?.firstName} ${this.name?.lastName} ${this.name?.middleName} ${this.email}`
+    this.slug = slugGenerator(name)
+    next();
   }
-  next();
 });
 
 //for update user slug:
@@ -84,10 +83,8 @@ userSchema.pre('findOneAndUpdate', function (next) {
     !Array.isArray(update) &&
     'name' in update
   ) {
-    (update as Record<string, unknown>).slug =
-      `${update.name?.firstName}-${update.name?.lastName}-${update.name?.middleName}-${update.email}`
-        .toLowerCase()
-        .replace(/ /g, '-');
+    const updateName = `${update.name?.firstName} ${update.name?.lastName} ${update.name?.middleName} ${update.email}`
+    this.set({ slug: slugGenerator(updateName) })
     this.setUpdate(update);
   }
   next();
@@ -102,4 +99,5 @@ userSchema.statics.isJwtIssuedBeforePasswordChange = async function (
   return passChangeTime > tokenIssuedTime;
 };
 
-export const User = model<IUser, userModel>('User', userSchema);
+export const
+User = model<IUser, userModel>('User', userSchema);

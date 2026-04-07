@@ -43,7 +43,7 @@ export const auth = (...requiredRole: TUserRole[]) => {
 
     //check password change time and token issue time:
     const checkTime = await User.isJwtIssuedBeforePasswordChange(
-      isUserExist?.passwordChangeAt as Date,
+      isUserExist?.passwordChangeAt as any,
       iat as number,
     );
 

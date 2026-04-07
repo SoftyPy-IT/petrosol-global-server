@@ -1,11 +1,11 @@
 import { ZodError, ZodIssue } from 'zod';
 import status from 'http-status';
-import { TErrorSource, TGenericErrorResponse } from '../interface/TError';
+import { TErrorSource, TGenericErrorResponse } from '../interface/Terror';
 
 const handleZodError = (err: ZodError): TGenericErrorResponse => {
   const errorSource: TErrorSource[] = err.issues.map((issue: ZodIssue) => {
     return {
-      path: issue?.path[issue.path.length - 1],
+      path: issue?.path[issue.path.length - 1] as string,
       message: issue.message,
     };
   });

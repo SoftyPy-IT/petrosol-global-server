@@ -59,7 +59,7 @@ const loginUser = async (payload: IUser) => {
   return {
     accessToken,
     refreshToken,
-    needsPasswordChange: isUserExist?.needsPasswordChange,
+    needsPasswordChange: isUserExist?.passwordChangeAt,
   };
 };
 
@@ -105,7 +105,7 @@ const refreshToken = async (token: string) => {
 
   //check password change time and token issue time:
   const checkTime = await User.isJwtIssuedBeforePasswordChange(
-    isUserExist?.passwordChangeAt as Date,
+    isUserExist?.passwordChangeAt as any,
     iat as number,
   );
 

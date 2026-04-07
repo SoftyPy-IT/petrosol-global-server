@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import { TIndustry } from "./industry.interface";
+import { slugGenerator } from "../../utils/slugGenerator";
 
 export const industrySchema = new Schema<TIndustry>({
   title: {
@@ -154,7 +155,7 @@ export const industrySchema = new Schema<TIndustry>({
 //for  create slug
 industrySchema.pre('save', function (next) {
   if (this.title) {
-    this.slug = this.title.toLowerCase().replace(/\s+/g, '-')
+    this.slug = slugGenerator(this.title)
   }
   next()
 })
@@ -163,7 +164,7 @@ industrySchema.pre('save', function (next) {
 industrySchema.pre('findOneAndUpdate', function (next) {
   const update = this.getUpdate() as TIndustry
   if (update.title) {
-    update.slug = update.title.toLowerCase().replace(/\s+/g, '-')
+    update.slug = slugGenerator(update.title)
   }
   next()
 })
