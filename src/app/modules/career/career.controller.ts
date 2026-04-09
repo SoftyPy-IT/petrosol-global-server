@@ -1,6 +1,6 @@
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
-import { createCareer, deleteCareer, getAllCareers, getCareerBySlug, updateCareer } from "./career.service";
+import { createCareer, deleteCareer, getAllCareers, getCareerById, getCareerBySlug, updateCareer } from "./career.service";
 
 export const createCareerController = catchAsync(async (req, res) => {
   const result = await createCareer(req.body);
@@ -24,6 +24,16 @@ export const getAllCareersController = catchAsync(async (req, res) => {
 
 export const getCareerBySlugController = catchAsync(async (req, res) => {
   const result = await getCareerBySlug(req.params.slug);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Career fetched successfully",
+    data: result,
+  });
+});
+
+export const getCareerByIdController = catchAsync(async (req, res) => {
+  const result = await getCareerById(req.params.id);
   sendResponse(res, {
     statusCode: 200,
     success: true,

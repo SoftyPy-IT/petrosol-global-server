@@ -7,9 +7,9 @@ const router = Router()
 
 router.post('/', validationRequest(createIndustryValidation), createIndustryController)
 router.get('/', getAllIndustriesController)
-router.get('/:slug', getIndustryBySlugController)
+router.get('/slug/:slug', getIndustryBySlugController)
 router.get('/:id', getIndustryByIdController)
 router.put('/:slug', validationRequest(updateIndustryValidation), updateIndustryController)
 router.delete('/:slug', deleteIndustryController)
 
-export default router
+export const IndustryRoutes = router

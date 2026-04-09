@@ -16,6 +16,11 @@ export const getCareerBySlug = async (slug: string) => {
   return result;
 }
 
+export const getCareerById = async (id: string) => {
+  const result = await Career.findById(id);
+  return result;
+}
+
 export const updateCareer = async (slug: string, payload: TCareer) => {
   const result = await Career.findOneAndUpdate({ slug }, payload, { new: true });
   return result;

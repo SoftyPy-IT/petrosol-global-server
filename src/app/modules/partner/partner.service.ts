@@ -22,6 +22,6 @@ export const updatePartner = async (id: string, payload: TPartner) => {
 };
 
 export const deletePartner = async (id: string) => {
-  const result = await Partner.findByIdAndDelete(id);
-  return result;
+  await Partner.findByIdAndDelete(id);
+  return null;
 };
